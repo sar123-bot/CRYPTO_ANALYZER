@@ -2,7 +2,7 @@
 
 A dynamic web application that allows users to search and view real-time cryptocurrency price data and visualize historical price trends using interactive charts.
 
-![Crypto Analyzer Screenshot](screenshot.png)
+![Home Page with Search](screenshots/Screenshot%202025-05-21%20031010.png)
 
 ---
 
