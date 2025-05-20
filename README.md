@@ -1,8 +1,8 @@
 # 💹 Crypto Analyzer
 
-A dynamic web application that allows users to search and view real-time cryptocurrency price data and visualize historical price trends using interactive charts.
+**Crypto Analyzer** is a web-based application built with **Node.js**, **Express.js**, and **EJS** that allows users to search and analyze real-time cryptocurrency market data. Leveraging the power of the **Blockchain.com API** for live price data and the **CoinGecko API** for historical trends, this tool provides a comprehensive view of any major cryptocurrency's current market status and recent performance.
 
-![Home Page with Search](screenshots/Screenshot%202025-05-21%20031010.png)
+
 
 ---
 
