@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Crypto Price Checker</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>💰 Crypto Price Checker</h1>
+
+    <% if (error) { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+
+    <form method="POST" action="/">
+      <label for="symbol">Select a cryptocurrency:</label>
+      <select name="symbol" id="symbol" required>
+        <option value="" disabled <%= !selectedSymbol ? 'selected' : '' %>>-- Select a coin --</option>
+        <% tickers.forEach(ticker => { %>
+          <option value="<%= ticker.symbol %>" <%= selectedSymbol === ticker.symbol ? 'selected' : '' %>>
+            <%= ticker.symbol %>
+          </option>
+        <% }) %>
+      </select>
+      <button type="submit">Get Price</button>
+    </form>
+
+    <% if (cryptoData) { %>
+      <div class="result-box">
+        <h2>Details for <%= cryptoData.symbol %></h2>
+        <p><strong>24h Price Change:</strong> $<%= cryptoData.price_24h %></p>
+        <p><strong>24h Volume:</strong> <%= cryptoData.volume_24h %></p>
+        <p><strong>Last Trade Price:</strong> $<%= cryptoData.last_trade_price %></p>
+      </div>
+
+      <% if (historicalPrices && historicalPrices.length > 0) { %>
+        <canvas id="priceChart" width="600" height="300"></canvas>
+
+       <script>
+  const ctx = document.getElementById('priceChart').getContext('2d');
+
+  const labels = <%- JSON.stringify((historicalPrices.map(p => p.time))) %>;
+  const data = <%- JSON.stringify((historicalPrices.map(p => p.price))) %>;
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Price (USD)',
+        data: data,
+        fill: false,
+        borderColor: '#ffc107',
+        backgroundColor: '#fff',
+        tension: 0.1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: false
+        }
+      }
+    }
+  });
+</script>
+
+
+      <% } else { %>
+        <p>No historical data available for this coin.</p>
+      <% } %>
+    <% } %>
+  </div>
+</body>
+</html>
